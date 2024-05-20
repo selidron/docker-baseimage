@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Container initialisation (start-up) script
+
+# Run usermod script
+nusermod -u app -i $uid -g $gid
+
+# Check for and run startup scripts
+# Startup scripts are stored in root/init/start
+# Scripts are registered and run according to the in directory regsiter file
+
+# Check for and launch additional services
+# Service scripts are stored in root/init/service
+# Services are registered and run according to the in directory regsiter file

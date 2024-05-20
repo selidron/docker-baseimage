@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Change user and group ID and file ownerships
+
+# Usage help string
+usage() {echo "Usage: $0 [-u <user name>] [-i <user id>] [-g <group id>]" 1>&2; exit 1; }
+
+# Collect arguments, if supplied
+while getopts ":u:i:g:" o ; do
+    case "${o}" in
+        u)
+            user=${OPTARG}
+            ;;
+        i)
+            new_id=${OPTARG}
+            ;;
+        g)
+            group_id=${OPTARG}
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ -z "${user}" ] ; then
+    usage
+else
+    if [ -z "${new_id}" ] && [ -z "${group_id}" ] ; then
+        usage
+    fi
+fi
+
+# Get old uid/gid
+old_uid=`id -u $user`
+old_gid=`getent group $user | cut -d: -f3`
+
+# Change UID and re-provision files
+if [ ! id ${new_id} ] ; then
+    # Change the UID of user
+    usermod -u $new_id $user
+    find / -user $old_uid -exec 'chown $new_id:' {} \;
+fi
+
+# Change GID and re-provision files
+if [ ! $(getent group $group_id) ] ; then
+    # Change the GID of user's main group
+    groupmod -g $group_id $user
+    find / -group $old_gid -exec 'chown :$group_id' {} \;
+fi
