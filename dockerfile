@@ -8,8 +8,7 @@ FROM alpine:latest
 ARG uid=1000 \
     gid=1000 \
     tz="America/New_York" \
-    umask=000 \
-    clamav=FALSE
+    umask=000
 
 # Set Env
 ENV uid=1000 \
@@ -28,14 +27,13 @@ RUN apk add --no-cache \
     busybox-binsh \
     libcrypto3
 
-# Install ClamAV
-RUN if [[ ${clamav} ]] ; then apk add --no-cache clamav ; fi
+# Install ClamAV and update
+RUN if [[ ${clamav} ]] ; then apk add --no-cache clamav && \
+    chmod 777 /var/lib/clamav && \
+    freshclam ; fi
 
 # Install VNC packages
 # TODO: Implement a VNC service
-
-# Update virus database
-RUN chmod 777 /var/lib/clamav && freshclam
 
 # Copy root to system root
 COPY root /
