@@ -25,7 +25,7 @@ RUN apk add --no-cache \
     font-dejavu \
     python3 \
     py3-pip \
-    busybox=binsh \
+    busybox-binsh \
     libcrypto3
 
 # Install ClamAV
@@ -40,11 +40,12 @@ RUN chmod 777 /var/lib/clamav && freshclam
 # Copy root to system root
 COPY root /
 
+# Volumes
+RUN mkdir -p /config && chmod 777 /config
+VOLUME /config
+
 # Create app user
 RUN adduser -HD -h /config -u ${uid} app && chown app:app -R /config
-
-# Volumes
-VOLUME /config
 
 # Set entry point (script to run at container start)
 ENTRYPOINT [ "/init" ]
