@@ -38,6 +38,8 @@ RUN if [[ ${clamav} == TRUE ]] ; then apk add --no-cache clamav && \
 # Copy root to system root
 COPY root /
 
+RUN chmod +x /init
+
 # Volumes
 RUN mkdir -p /config && chmod 777 /config
 VOLUME /config
