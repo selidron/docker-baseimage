@@ -8,7 +8,8 @@ FROM alpine:latest
 ARG uid=1000 \
     gid=1000 \
     tz="America/New_York" \
-    umask=000
+    umask=000 \
+    clamav=FALSE
 
 # Set Env
 ENV uid=1000 \
@@ -28,7 +29,7 @@ RUN apk add --no-cache \
     libcrypto3
 
 # Install ClamAV and update
-RUN if [[ ${clamav} ]] ; then apk add --no-cache clamav && \
+RUN if [[ ${clamav} == TRUE ]] ; then apk add --no-cache clamav && \
     chmod 777 /var/lib/clamav && \
     freshclam ; fi
 
