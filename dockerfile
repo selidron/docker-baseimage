@@ -30,8 +30,7 @@ RUN apk add --no-cache \
 
 # Install ClamAV and update
 RUN if [[ ${clamav} == TRUE ]] ; then apk add --no-cache clamav && \
-    chmod 777 /var/lib/clamav && \
-    freshclam ; fi
+    chmod 777 /var/lib/clamav ; fi
 
 # Install VNC packages
 # TODO: Implement a VNC service
