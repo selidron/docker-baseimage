@@ -16,8 +16,8 @@ done
 # Check for and launch additional services
 # Service scripts are stored in root/init/service
 # Services may loop indefinitely as they will be executed and detached
-count=`ls -1q /init.d/service/* | wc -l`
-echo "Found $count service scripts."
+count=`ls -1q /init.d/services/* | wc -l`
+echo "Found $count services scripts."
 for file in /init.d/services/* ; do
     exec $file &
 done
