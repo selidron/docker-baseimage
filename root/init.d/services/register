@@ -1,7 +1,0 @@
-# Register file of services to run
-# Files are registered in the following format
-# If service contains more than one file, script should be a run command pointing to service launcher
-#
-# <Script> <Frequency>
-# Sample.Script.sh Once
-# "Sample Spaced.sh Cont

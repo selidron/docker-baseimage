@@ -1,0 +1,6 @@
+#!/bin/bash
+
+./build-av $1
+./build-latest $1
+
+docker image prune

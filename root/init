@@ -7,17 +7,19 @@ nusermod -u app -i $uid -g $gid
 
 # Check for and run startup scripts
 # Startup scripts are stored in root/init/start and should have a definite end
-count=`ls -1q /init.d/start/* | wc -l`
+chmod +x -R /init.d
+shopt -s nullglob
+count=`ls -l /init.d/start/ | wc -l`
 echo "Found $count startup scripts."
 for file in /init.d/start/* ; do
-    exec $file
+    $file
 done
 
 # Check for and launch additional services
 # Service scripts are stored in root/init/service
 # Services may loop indefinitely as they will be executed and detached
-count=`ls -1q /init.d/services/* | wc -l`
+count=`ls -l /init.d/services/ | wc -l`
 echo "Found $count services scripts."
 for file in /init.d/services/* ; do
-    exec $file &
+    $file
 done

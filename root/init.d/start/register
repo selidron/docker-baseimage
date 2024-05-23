@@ -1,6 +1,0 @@
-# Register file of scripts to run at startup
-# Files are registered in the following format
-#
-# <Script> <Frequency>
-# Sample.Script.sh Once
-# "Sample Spaced.sh Cont
