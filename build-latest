@@ -2,6 +2,8 @@
 
 docker build -t selidron/baseimage:latest .
 
+if ! [ $? == 0 ] ; then exit $? ; fi
+
 if [ $1 == "push" ] ; then
     docker push selidron/baseimage:latest
 fi

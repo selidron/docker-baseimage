@@ -3,4 +3,6 @@
 ./build-av $1
 ./build-latest $1
 
-docker image prune
+if ! [ $? == 0 ] ; then exit 1 ; fi
+
+docker image prune -f

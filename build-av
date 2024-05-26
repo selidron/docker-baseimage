@@ -2,6 +2,6 @@
 
 docker build -t selidron/baseimage:av --build-arg clamav=TRUE .
 
-if [ $1 == "push" ] ; then
-    docker push selidron/baseimage:latest
-fi
+if ! [ $? == 0 ] ; then exit $? ; fi
+
+if [ $1 == "push" ] ; then docker push selidron/baseimage:latest ; fi
