@@ -40,12 +40,12 @@ old_gid=`getent group $user | cut -d: -f3`
 if [ ! id ${new_id} ] ; then
     # Change the UID of user
     usermod -u $new_id $user
-    find / -user $old_uid -exec "chown ${new_id}:${group_id}" {} \;
+    find / -user $old_uid -exec chown $new_id:$group_id {} \;
 fi
 
 # Change GID and re-provision files
 if [ ! $(getent group $group_id) ] ; then
     # Change the GID of user's main group
     groupmod -g $group_id $user
-    find / -group $old_gid -exec "chown ${new_id}:${group_id}" {} \;
+    find / -group $old_gid -exec chown $new_id:$group_id {} \;
 fi
